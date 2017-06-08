@@ -365,12 +365,6 @@ ManageIQ.angular.app.controller('emsCommonFormController', ['$http', '$scope', '
         $scope.emsCommonModel.kubevirt_api_port !== '') ||
       ($scope.currentTab === "proxy_settings") || ($scope.currentTab === "advanced_settings"))) {
       return true;
-    } else if(($scope.emsCommonModel.monitoring_selection == "prometheus" && $scope.emsCommonModel.ems_controller == "ems_container") &&
-      ($scope.emsCommonModel.emstype) &&
-      ($scope.emsCommonModel.prometheus_hostname != '' && $scope.emsCommonModel.prometheus_api_port) &&
-      ($scope.emsCommonModel.default_password != '' && $scope.angularForm.default_password.$valid) &&
-      ($scope.emsCommonModel.default_verify != '' && $scope.angularForm.default_verify.$valid)) {
-      return true;
     } else if($scope.emsCommonModel.emstype == "gce" && $scope.emsCommonModel.project != '' &&
       ($scope.currentTab == "default" ||
       ($scope.currentTab == "service_account" && $scope.emsCommonModel.service_account != ''))) {
@@ -576,8 +570,10 @@ ManageIQ.angular.app.controller('emsCommonFormController', ['$http', '$scope', '
       $scope.postValidationModelRegistry("prometheus_alerts");
     }
     if ($scope.emsCommonModel.kubevirt_auth_status === true) {
-      $scope.postValidationModelRegistry("kubevirt");    }
+      $scope.postValidationModelRegistry("kubevirt");
+    }
   };
+
 
   $scope.postValidationModelRegistry = function(prefix) {
     if ($scope.postValidationModel === undefined) {
