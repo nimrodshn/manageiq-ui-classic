@@ -103,21 +103,39 @@ module EmsContainerHelper::TextualSummary
   end
 
   def textual_group_endpoints
-    return unless @record.connection_configurations.hawkular
-
-    TextualGroup.new(
-      _("Endpoints"),
-      [
-        {
-          :label => _('Hawkular Host Name'),
-          :value => @record.connection_configurations.hawkular.endpoint.hostname
-        },
-        {
-          :label => _('Hawkular API Port'),
-          :value => @record.connection_configurations.hawkular.endpoint.port
-        }
-      ]
-    )
+    def textual_group_endpoints
+      endpoint = @record.endpoints.where.not(:role => 'default').pluck(:role)
+      return if endpoint.nil?
+      if endpoint.first == "hawkular"
+        TextualGroup.new(
+          _("Endpoints"),
+          [
+            {
+              :label => _('Hawkular Host Name'),
+              :value => @record.connection_configurations.hawkular.endpoint.hostname
+            },
+            {
+              :label => _('Hawkular API Port'),
+              :value => @record.connection_configurations.hawkular.endpoint.port
+            }
+          ]
+        )
+      elsif endpoint.first == "prometheus"
+        TextualGroup.new(
+          _("Endpoints"),
+          [
+            {
+              :label => _('Prometheus Host Name'),
+              :value => @record.connection_configurations.prometheus.endpoint.hostname
+            },
+            {
+              :label => _('Prometheus API Port'),
+              :value => @record.connection_configurations.prometheus.endpoint.port
+            }
+          ]
+        )
+      end
+    end
   end
 
   def textual_group_miq_custom_attributes
