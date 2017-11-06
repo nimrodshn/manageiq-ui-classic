@@ -621,11 +621,14 @@ module Mixins
           prometheus_alerts_endpoint = {:role => :prometheus_alerts, :hostname => prometheus_alerts_hostname, :port => prometheus_alerts_api_port}
           prometheus_alerts_endpoint.merge!(endpoint_security_options(prometheus_alerts_security_protocol, prometheus_alerts_tls_ca_certs))
         end
+<<<<<<< HEAD
 
         if params[:virtualization_selection] == 'kubevirt'
           kubevirt_endpoint = {:role => :kubevirt, :hostname => kubevirt_hostname, :port => kubevirt_api_port}
           kubevirt_endpoint.merge!(endpoint_security_options(kubevirt_security_protocol, kubevirt_tls_ca_certs))
         end
+=======
+>>>>>>> .
       end
 
       if ems.kind_of?(ManageIQ::Providers::Nuage::NetworkManager)
