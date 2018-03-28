@@ -574,7 +574,6 @@ ManageIQ.angular.app.controller('emsCommonFormController', ['$http', '$scope', '
     }
   };
 
-
   $scope.postValidationModelRegistry = function(prefix) {
     if ($scope.postValidationModel === undefined) {
       $scope.postValidationModel = {
